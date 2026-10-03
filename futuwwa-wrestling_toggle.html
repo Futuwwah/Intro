@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What is Futuwwa? | Meipporul Futuwwa Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ========== LIGHT THEME (default / latest) ========== */
+    :root,
+    [data-theme="light"] {
+      --bg: #f7f5f0;
+      --bg-card: #ffffff;
+      --bg-card-hover: #faf8f3;
+      --bg-soft: #f0ebe3;
+      --red: #c8102e;
+      --red-dark: #8b0a1e;
+      --red-soft: rgba(200, 16, 46, 0.08);
+      --gold: #b8960c;
+      --gold-light: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.15);
+      --text: #1a1a1a;
+      --text-muted: #4a4a4a;
+      --border: #e0d9cc;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --header-bg: linear-gradient(180deg, #ffffff 0%, #f7f5f0 100%);
+      --header-glow: rgba(200, 16, 46, 0.07);
+      --quote-text: #3a3528;
+      --footer-bg: #ffffff;
+      --toggle-bg: #ffffff;
+      --toggle-border: #e0d9cc;
+      --toggle-icon: #1a1a1a;
+    }
+
+    /* ========== DARK THEME (previous version) ========== */
+    [data-theme="dark"] {
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --bg-card-hover: #1c1c1c;
+      --bg-soft: rgba(0, 0, 0, 0.35);
+      --red: #c8102e;
+      --red-dark: #8b0a1e;
+      --red-soft: rgba(200, 16, 46, 0.12);
+      --gold: #d4af37;
+      --gold-light: #f0d77b;
+      --gold-soft: rgba(212, 175, 55, 0.08);
+      --text: #f5f5f5;
+      --text-muted: #b0b0b0;
+      --border: #2a2a2a;
+      --shadow: none;
+      --header-bg: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+      --header-glow: rgba(200, 16, 46, 0.25);
+      --quote-text: #e8e0c8;
+      --footer-bg: #080808;
+      --toggle-bg: #1c1c1c;
+      --toggle-border: #2a2a2a;
+      --toggle-icon: #f5f5f5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--toggle-border);
+      background: var(--toggle-bg);
+      color: var(--toggle-icon);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      transition: background 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.08);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.96);
+    }
+
+    .theme-toggle svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon {
+      display: none;
+    }
+
+    [data-theme="light"] .theme-toggle .icon-moon {
+      display: block;
+    }
+
+    [data-theme="dark"] .theme-toggle .icon-sun {
+      display: block;
+    }
+
+    /* Top championship-style banner */
+    .arena-banner {
+      background: linear-gradient(90deg, var(--red-dark), var(--red), var(--red-dark));
+      height: 8px;
+      width: 100%;
+      position: relative;
+    }
+    .arena-banner::before,
+    .arena-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 40px;
+      height: 8px;
+      background: var(--gold-light);
+    }
+    .arena-banner::before { left: 0; }
+    .arena-banner::after { right: 0; }
+
+    /* Hero */
+    header {
+      background:
+        radial-gradient(ellipse at top, var(--header-glow) 0%, transparent 55%),
+        var(--header-bg);
+      padding: 3.5rem 1.5rem 2.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--gold-light);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 20px,
+        rgba(212, 175, 55, 0.04) 20px,
+        rgba(212, 175, 55, 0.04) 40px
+      );
+      pointer-events: none;
+    }
+
+    .club-tag {
+      display: inline-block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1.5px solid var(--red);
+      padding: 0.35rem 1.1rem;
+      margin-bottom: 1.25rem;
+      background: var(--red-soft);
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    [data-theme="dark"] .club-tag {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', 'Oswald', sans-serif;
+      font-size: clamp(2.8rem, 8vw, 4.8rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    [data-theme="dark"] h1 {
+      color: #fff;
+      text-shadow: 0 0 30px rgba(200, 16, 46, 0.5);
+    }
+
+    .subtitle {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    /* Main container */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* Section cards */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--red);
+      margin-bottom: 1.75rem;
+      padding: 1.75rem 1.5rem 1.75rem 1.75rem;
+      position: relative;
+      box-shadow: var(--shadow);
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section:hover {
+      background: var(--bg-card-hover);
+      border-left-color: var(--gold-light);
+    }
+
+    [data-theme="light"] .section:hover {
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--red-dark);
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: color 0.3s;
+    }
+
+    [data-theme="dark"] .section-title {
+      color: var(--gold-light);
+    }
+
+    .section-title::before {
+      content: '▸';
+      color: var(--gold);
+      font-size: 1.3rem;
+    }
+
+    [data-theme="dark"] .section-title::before {
+      color: var(--red);
+    }
+
+    .section p,
+    .section li {
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+      font-size: 1.02rem;
+      transition: color 0.3s;
+    }
+
+    .section p:last-child,
+    .section li:last-child {
+      margin-bottom: 0;
+    }
+
+    .section strong,
+    .section b {
+      color: var(--text);
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    /* Quote block */
+    .quote {
+      background: linear-gradient(135deg, var(--red-soft), var(--gold-soft));
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-left: 4px solid var(--gold);
+      padding: 1.25rem 1.4rem;
+      margin: 1.2rem 0;
+      font-style: italic;
+      color: var(--quote-text);
+      position: relative;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .quote::before {
+      content: '"';
+      font-family: Georgia, serif;
+      font-size: 3.5rem;
+      color: var(--gold);
+      opacity: 0.45;
+      position: absolute;
+      top: -0.3rem;
+      left: 0.6rem;
+      line-height: 1;
+    }
+
+    /* Lists */
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 1.6rem;
+      margin-bottom: 0.7rem;
+    }
+
+    ul li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-size: 0.7rem;
+      top: 0.35rem;
+    }
+
+    /* Numbered / checklist style for activities */
+    .activity-list {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 0.5rem;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      padding: 0.85rem 1rem;
+      transition: border-color 0.2s, background 0.3s;
+    }
+
+    .activity-item:hover {
+      border-color: var(--red);
+    }
+
+    [data-theme="light"] .activity-item:hover {
+      background: #fff;
+    }
+
+    [data-theme="dark"] .activity-item:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .activity-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--red);
+      min-width: 1.8rem;
+      line-height: 1.2;
+      transition: color 0.3s;
+    }
+
+    [data-theme="dark"] .activity-num {
+      color: var(--gold);
+    }
+
+    .activity-text {
+      flex: 1;
+      color: var(--text);
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .activity-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 0.15rem;
+      transition: color 0.3s;
+    }
+
+    /* Highlight box for key points */
+    .highlight-box {
+      background: linear-gradient(90deg, var(--red-soft), transparent);
+      border-left: 4px solid var(--red);
+      padding: 1rem 1.25rem;
+      margin: 1.1rem 0;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* Gathering list */
+    .gathering-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .gathering-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      padding: 1.1rem;
+      text-align: center;
+      transition: all 0.25s;
+    }
+
+    .gathering-card:hover {
+      border-color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    [data-theme="light"] .gathering-card:hover {
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    [data-theme="dark"] .gathering-card:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .gathering-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .gathering-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--red-dark);
+      margin-bottom: 0.4rem;
+      transition: color 0.3s;
+    }
+
+    [data-theme="dark"] .gathering-card h3 {
+      color: var(--gold);
+    }
+
+    .gathering-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin: 0;
+      transition: color 0.3s;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 2.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--footer-bg);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    footer .club-name {
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.4rem;
+      transition: color 0.3s;
+    }
+
+    [data-theme="dark"] footer .club-name {
+      color: var(--gold);
+    }
+
+    /* Rope decoration */
+    .rope-line {
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--red) 0,
+        var(--red) 12px,
+        var(--border) 12px,
+        var(--border) 18px
+      );
+      margin: 2.5rem 0;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .section {
+        padding: 1.4rem 1.1rem;
+      }
+      h1 {
+        font-size: 2.6rem;
+      }
+      .gathering-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .theme-toggle {
+        top: 0.85rem;
+        right: 0.85rem;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+    <!-- Moon icon (shown in light mode → click to go dark) -->
+    <svg class="icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <!-- Sun icon (shown in dark mode → click to go light) -->
+    <svg class="icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <div class="arena-banner"></div>
+
+  <header>
+    <div class="club-tag">Meipporul Futuwwa Club</div>
+    <h1>WHAT IS FUTUWWA?</h1>
+    <p class="subtitle">The Path of the Noble Man</p>
+  </header>
+
+  <main>
+
+    <!-- What is Futuwwa -->
+    <section class="section">
+      <h2 class="section-title">What is Futuwwa?</h2>
+      <p>Futuwwa started around a thousand years ago as practical Islamic ethical guidelines for Muslim youth.</p>
+      <p>It is drawn from the lives of the Prophets — from Adam to Muḥammad (pbuh) — and their followers in all ages.</p>
+      <p>The great scholar of hadith, who authored the first known <em>Kitāb al-Futuwwah</em>, <strong>Abd al-Raḥmān al-Sulamī of Nīshāpūr</strong> (325–412 AH / 936–1021 CE), defines Futuwwah as:</p>
+
+      <div class="quote">
+        Futuwwah means following the ordinances of perfect devotion, leaving all evil, and attaining in action and in thought the best of visible and hidden good conduct. Every condition and every moment demand from you one aspect of Futuwwah. There is no state or time without that demand. There is futuwwah fit for your behavior toward God, another toward the Prophet, and others toward his companions; yet others toward the pure ones of the past, your sheikh, your brotherhood, and the two angels on your shoulders who keep the accounting of your deeds.
+      </div>
+    </section>
+
+    <!-- Who is it for -->
+    <section class="section">
+      <h2 class="section-title">Who is it for?</h2>
+      <p>The futuwwah ethics is not only for the youth but for <strong>all ages and walks of life</strong>, because it is used synonymously with <em>murūwwah</em> — the wholesome personality.</p>
+      <p>It is also not only for men but for women as well, because good morality cannot be thought exclusive to young men. In sum, it is a <strong>universal morality</strong> for all, regardless of age and gender.</p>
+      <p>The core values of futuwwah are universal even beyond religion and civilization.</p>
+      <div class="highlight-box">
+        Example: Bushido in Japanese culture — a parallel code of honor, courage, and self-mastery.
+      </div>
+    </section>
+
+    <!-- Central aspects -->
+    <section class="section">
+      <h2 class="section-title">Central Aspects of Futuwwa</h2>
+      <p><strong>Fata</strong> (Young Man) came to mean the ideal, noble, and perfect man whose hospitality and generosity would extend until he had nothing left for himself — a man who would give all, including his life, for the sake of his friends.</p>
+      <p>According to the Sufis, Futuwwah is a code of honorable conduct that follows the example of the prophets, saints, sages, and the intimate friends and lovers of Allah.</p>
+
+      <div class="highlight-box">
+        Futuwwah is a state of mind. It means placing other people above oneself. It is being generous and altruistic. It is self-denial, immunity to disappointment, indulgence toward other people’s shortcomings. It is a fearless struggle against tyranny — and above all, it is love.
+      </div>
+    </section>
+
+    <!-- Why Futuwwa -->
+    <section class="section">
+      <h2 class="section-title">Why Futuwwa?</h2>
+      <p>The purpose of Futuwwa is to put the principles of ethics in the Qur’an and the Sunnah into practice.</p>
+      <p>The Qur’an and the Sunnah may seem vast and inaccessible to many. Futuwwah acts as a digest of these diverse principles.</p>
+      <p>Its goal is to develop the most wholesome personality (<em>murūwwah</em>) and the highest level of morality (<em>makārim al-akhlāq</em>), originating from the teaching and practice of Prophet Muḥammad (pbuh).</p>
+    </section>
+
+    <!-- How to put principles in practice -->
+    <section class="section">
+      <h2 class="section-title">How to Put Principles into Practice</h2>
+      <p>Futuwwah ethics utilizes the stories of great figures and saintly persons — similar to the Qur’anic and hadith narratives that convey moral messages through stories of the past.</p>
+      <p>Futuwwah chooses its role models from the Prophets, the Companions of Prophet Muhammad (a.s.m.), and saintly men and women throughout Islamic history. <strong>We follow their footsteps.</strong></p>
+    </section>
+
+    <div class="rope-line"></div>
+
+    <!-- What's in it for me -->
+    <section class="section">
+      <h2 class="section-title">What’s in it for Me?</h2>
+      <p>We generally read and speak — but the <strong>Futuwwa Club is for action</strong>.</p>
+      <p>Spiritual. Physical. Intellectual.</p>
+      <p>We put our principles and values into practice for our own betterment and for the betterment of our brothers, the Ummah, and wider society.</p>
+    </section>
+
+    <!-- Expectations -->
+    <section class="section">
+      <h2 class="section-title">What is Expected of Me?</h2>
+      <p>As a member of the <strong>Meipporul Futuwwa Club</strong>, you are expected to:</p>
+      <ul>
+        <li>Attend the gathering <strong>at least once a month</strong></li>
+        <li>Act and update the status of your Futuwwa activities in the group <strong>at least every other day</strong></li>
+      </ul>
+    </section>
+
+    <!-- Monthly Gathering -->
+    <section class="section">
+      <h2 class="section-title">What is the Monthly Gathering For?</h2>
+      <div class="gathering-grid">
+        <div class="gathering-card">
+          <span class="gathering-icon">🤼</span>
+          <h3>Physical</h3>
+          <p>Beach Wrestling, Football &amp; Sports</p>
+        </div>
+        <div class="gathering-card">
+          <span class="gathering-icon">🕌</span>
+          <h3>Spiritual</h3>
+          <p>Guidance &amp; Upliftment</p>
+        </div>
+        <div class="gathering-card">
+          <span class="gathering-icon">🗣️</span>
+          <h3>Brotherhood</h3>
+          <p>Discuss challenges together</p>
+        </div>
+        <div class="gathering-card">
+          <span class="gathering-icon">📋</span>
+          <h3>Planning</h3>
+          <p>More Futuwwa activities &amp; events</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activities checklist -->
+    <section class="section">
+      <h2 class="section-title">Futuwwa Activities to Update</h2>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-num">01</div>
+          <div>
+            <div class="activity-text">Salah in Jamaat</div>
+            <div class="activity-status">Observed / Partially Observed</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-num">02</div>
+          <div>
+            <div class="activity-text">Quran Study &amp; Tadabbur</div>
+            <div class="activity-status">Done / Missed</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-num">03</div>
+          <div>
+            <div class="activity-text">Physical Workout</div>
+            <div class="activity-status">Done / Missed</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-num">04</div>
+          <div>
+            <div class="activity-text">Huququl Ibadh (Rights of family, friends, relatives &amp; everyone)</div>
+            <div class="activity-status">Observed / Partially Observed</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-num">05</div>
+          <div>
+            <div class="activity-text">Dhikr &amp; Tawbah</div>
+            <div class="activity-status">Observed / Partially Observed</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-num">06</div>
+          <div>
+            <div class="activity-text">Balanced Diet</div>
+            <div class="activity-status">Observed / Partially Observed</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-num">07</div>
+          <div>
+            <div class="activity-text">Social Media Fasting</div>
+            <div class="activity-status">Observed / Partially Observed</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-num">08</div>
+          <div>
+            <div class="activity-text">Reading, Listening &amp; Writing</div>
+            <div class="activity-status">Done / Missed</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="club-name">Meipporul Futuwwa Club</div>
+    <p>Discipline • Brotherhood • Honor • Action</p>
+  </footer>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const STORAGE_KEY = 'futuwwa-theme';
+
+      // Default to light; restore saved preference if any
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const initial = saved === 'dark' || saved === 'light' ? saved : 'light';
+      html.setAttribute('data-theme', initial);
+
+      toggle.addEventListener('click', function () {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem(STORAGE_KEY, next);
+      });
+    })();
+  </script>
+
+</body>
+</html>
